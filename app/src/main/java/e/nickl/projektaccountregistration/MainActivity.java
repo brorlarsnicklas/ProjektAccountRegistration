@@ -6,18 +6,18 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity
+{
 
     AccountRegForm accountReg;
 
-
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
         accountReg = findViewById(R.id.accountRegForm);
-
         accountReg.addField(this, "Namn", true, accountReg.textField);
         accountReg.addField(this, "Email", true, accountReg.emailField);
         accountReg.addField(this, "Password", true, accountReg.passwordField);

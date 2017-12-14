@@ -152,6 +152,7 @@ public class Fields extends LinearLayout
     {
         return valid;
     }
+
     public boolean isRequired()
     {
         return required;
