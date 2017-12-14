@@ -107,7 +107,7 @@ public class AccountRegForm extends LinearLayout
             fieldList.get(i).setEmpty();
         }
     }
-    
+
     /**
      * Method to get the registration data from the account registration
      */

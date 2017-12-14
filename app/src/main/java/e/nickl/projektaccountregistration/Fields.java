@@ -10,11 +10,9 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 /**
- * Created by nickl on 2017-12-13.
+ * A class fields that extends LinearLayout.
+ * Creates different fields based on input type.
  */
-
-
-
 public class Fields extends LinearLayout
 {
 
@@ -36,17 +34,14 @@ public class Fields extends LinearLayout
         init();
     }
 
-    public Fields(Context context, String name)
-    {
-        super(context);
-        this.context = context;
-        this.name = name;
-    }
-
+    /**
+     * Method to initialize the account registration
+     */
     public void init()
     {
-        LinearLayout layout = (LinearLayout) inflate(context, R.layout.new_field, null);
-
+            // Inflates XML file (new_field) to a LinearLayout
+            LinearLayout layout = (LinearLayout) inflate(context, R.layout.new_field, null);
+            // Finds and creates the views from the XML file
             editText = layout.findViewById(R.id.editTextField);
             textView = layout.findViewById(R.id.textField);
             checkBox = layout.findViewById(R.id.checkBox);
@@ -59,7 +54,8 @@ public class Fields extends LinearLayout
             {
                 textView.setText(name);
             }
-
+            // Switch statement to determine what input type to use for
+            // the EditTextField.
             switch (inputType)
             {
                 case "text":
@@ -93,6 +89,9 @@ public class Fields extends LinearLayout
                 @Override
                 public void afterTextChanged(Editable editable)
                 {
+                    // Checks if the input is valid and sets a
+                    // checkbox visible with color green if the
+                    // input is required and valid
                     String temp = editable.toString();
                     isValidInput(temp, inputType);
                     if(valid == false && required){
@@ -107,12 +106,19 @@ public class Fields extends LinearLayout
 
                 }
             });
-
+        // Adds the layout to the main layout
         addView(layout);
     }
 
+    /**
+     * Method to evalute if the input is valid depending on different input types
+     * @param input String with the input data from the field
+     * @param inputType String with the fields input type
+     * @return boolean true or false depending on valid input or not.
+     */
     public boolean isValidInput(String input, String inputType)
     {
+        // Pattern to use when validating email input
         String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
 
         switch (inputType)
@@ -148,26 +154,45 @@ public class Fields extends LinearLayout
         return false;
     }
 
+    /**
+     * Method to return if the input is valid or not
+     * @return boolean value true or false
+     */
     public boolean isValid()
     {
         return valid;
     }
 
+    /**
+     * Method to see if the input field is required to be filled or not.
+     * @return boolean value true or false
+     */
     public boolean isRequired()
     {
         return required;
     }
 
+    /**
+     * Method to get the field name
+     * @return String with the name of the field
+     */
     public String getName()
     {
         return name;
     }
 
+    /**
+     * Method to get the input text from the field
+     * @return String with the current input of the field
+     */
     public String getInputText()
     {
         return editText.getText().toString();
     }
 
+    /**
+     * Method to set the clear the input field
+     */
     public void setEmpty()
     {
         editText.setText("");
