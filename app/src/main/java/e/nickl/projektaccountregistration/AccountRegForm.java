@@ -46,14 +46,9 @@ public class AccountRegForm extends LinearLayout
 
     /**
      * Creates a field with chosen input type and adds it to the layout.
-     * @param context
-     * @param name  the name of the field, shown in the textView
-     * @param required boolean to define if a field requires valid input or not
-     * @param inputType string to define the input of the text field
      */
-    public void addField(Context context, String name, boolean required, String inputType)
+    public void addField(Fields fields)
     {
-        Fields fields = new Fields(context, name, required, inputType);
         addView(fields);
         fieldList.add(fields);
     }
