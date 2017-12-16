@@ -46,66 +46,67 @@ public class Fields extends LinearLayout
             textView = layout.findViewById(R.id.textField);
             checkBox = layout.findViewById(R.id.checkBox);
 
-            if (required)
+        if (required)
+        {
+            textView.setText(name + "*");
+        }
+        else
+        {
+            textView.setText(name);
+        }
+        // Switch statement to determine what input type to use for
+        // the EditTextField.
+        switch (inputType)
+        {
+            case "text":
+                editText.setInputType(InputType.TYPE_CLASS_TEXT);
+                break;
+            case "password":
+                editText.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
+                break;
+            case "number":
+                editText.setInputType(InputType.TYPE_CLASS_NUMBER);
+                break;
+            case "email":
+                editText.setInputType(InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS);
+                break;
+        }
+
+        editText.addTextChangedListener(new TextWatcher()
+        {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2)
             {
-                textView.setText(name + "*");
-            }
-            else
-            {
-                textView.setText(name);
-            }
-            // Switch statement to determine what input type to use for
-            // the EditTextField.
-            switch (inputType)
-            {
-                case "text":
-                    editText.setInputType(InputType.TYPE_CLASS_TEXT);
-                    break;
-                case "password":
-                    editText.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
-                    break;
-                case "number":
-                    editText.setInputType(InputType.TYPE_CLASS_NUMBER);
-                    break;
-                case "email":
-                    editText.setInputType(InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS);
-                    break;
+
             }
 
-            editText.addTextChangedListener(new TextWatcher()
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2)
             {
-                @Override
-                public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2)
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable)
+            {
+                // Checks if the input is valid and sets a
+                // checkbox visible with color green if the
+                // input is required and valid
+                String temp = editable.toString();
+                isValidInput(temp);
+                if(valid == false && required){
+                    checkBox.setChecked(false);
+                    checkBox.setVisibility(INVISIBLE);
+                }
+                if(valid == true && required)
                 {
-
+                    checkBox.setChecked(true);
+                    checkBox.setVisibility(VISIBLE);
                 }
 
-                @Override
-                public void onTextChanged(CharSequence charSequence, int i, int i1, int i2)
-                {
+            }
+        });
 
-                }
-
-                @Override
-                public void afterTextChanged(Editable editable)
-                {
-                    // Checks if the input is valid and sets a
-                    // checkbox visible with color green if the
-                    // input is required and valid
-                    String temp = editable.toString();
-                    isValidInput(temp, inputType);
-                    if(valid == false && required){
-                        checkBox.setChecked(false);
-                        checkBox.setVisibility(INVISIBLE);
-                    }
-                    if(valid == true && required)
-                    {
-                        checkBox.setChecked(true);
-                        checkBox.setVisibility(VISIBLE);
-                    }
-
-                }
-            });
         // Adds the layout to the main layout
         addView(layout);
     }
@@ -113,10 +114,9 @@ public class Fields extends LinearLayout
     /**
      * Method to evalute if the input is valid depending on different input types
      * @param input String with the input data from the field
-     * @param inputType String with the fields input type
      * @return boolean true or false depending on valid input or not.
      */
-    public boolean isValidInput(String input, String inputType)
+    public boolean isValidInput(String input)
     {
         // Pattern to use when validating email input
         String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
@@ -198,4 +198,22 @@ public class Fields extends LinearLayout
         editText.setText("");
     }
 
+    /**
+     * Getter for the EditTextView field
+     * @return editText
+     */
+    public EditText getEditextField()
+    {
+        return editText;
+    }
+
+    /**
+     * Getter for the TextView field.
+     * @return textView
+     */
+    public TextView getTextViewField()
+    {
+     return textView;
+    }
 }
+
