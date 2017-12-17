@@ -23,6 +23,9 @@ public class MainActivity extends AppCompatActivity
         accountReg.addField(new Fields(this, "Password", true, accountReg.passwordField));
         accountReg.addField(new Fields(this, "Age", false, accountReg.numberField));
 
+        // Tester sets the textcolor to green in the textviews
+        accountReg.addField(new Tester(this, "Test", false, accountReg.textField));
+
         Button registerButton = findViewById(R.id.registerButton);
         registerButton.setOnClickListener(new View.OnClickListener() {
             @Override
